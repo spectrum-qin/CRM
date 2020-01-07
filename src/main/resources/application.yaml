@@ -8,6 +8,11 @@ spring:
     password: 123456
 server:
   port: 8101 #运行端口号
+feign:
+  hystrix:
+    enabled: true #在Feign中开启Hystrix
+  httpclient:
+    enabled: true
 eureka:
   instance:
     lease-expiration-duration-in-seconds: 3 #服务过期时间配置,超过这个时间没有接收到心跳EurekaServer就会将这个实例剔除
@@ -17,3 +22,5 @@ eureka:
     fetch-registry: true #获取注册实例列表
     service-url:
       defaultZone: http://122.51.247.67:8001/eureka/ #配置注册中心地址
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
