@@ -1,5 +1,6 @@
 package com.spectrum.crm.service;
 
+import com.spectrum.crm.data.User;
 import com.spectrum.crm.util.CommonResult;
 import org.springframework.stereotype.Service;
 
@@ -11,4 +12,6 @@ public interface UserService {
     CommonResult userRegister(Map map);
 
     CommonResult selectUserInfoByIdNo(String idNo);
+
+    CommonResult list();
 }

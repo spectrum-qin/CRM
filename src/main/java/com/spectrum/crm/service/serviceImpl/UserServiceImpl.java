@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -72,5 +69,12 @@ public class UserServiceImpl implements UserService {
 
         User user = userDao.selectUserInfoByIdNo(idNo);
         return new CommonResult<>(user);
+    }
+
+    @Override
+    public CommonResult list() {
+        List<User> userList = userDao.list();
+        logger.info("查询成功");
+        return new CommonResult<>(userList);
     }
 }

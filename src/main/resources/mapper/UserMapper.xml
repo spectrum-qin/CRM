@@ -10,4 +10,8 @@
     <select id="selectUserInfoByIdNo" resultType="com.spectrum.crm.data.User">
 		SELECT * FROM user where id_no = #{idNo}
 	</select>
+
+	<select id="list" resultType="com.spectrum.crm.data.User">
+		SELECT * FROM user
+	</select>
 </mapper>
