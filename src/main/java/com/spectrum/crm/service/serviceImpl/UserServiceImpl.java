@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
         String custName = MapUtil.getStringKeyValues(map, "custName");
         String mobile = MapUtil.getStringKeyValues(map, "mobile");
         String email = MapUtil.getStringKeyValues(map, "email");
-        String age = MapUtil.getStringKeyValues(map, "age");
-        String sex = MapUtil.getStringKeyValues(map, "sex");
+        String userName = MapUtil.getStringKeyValues(map, "userName");
+        String passWord = MapUtil.getStringKeyValues(map, "passWord");
         User oldUser = userDao.selectUserInfoByIdNo(idNo);
         Map resultMap = new HashMap();
         if (StringUtils.isEmpty(oldUser)) {
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
             user.setCustName(custName);
             user.setMobile(mobile);
             user.setEmail(email);
-            user.setAge(age);
-            user.setSex(sex);
+            user.setAge(userName);
+            user.setSex(passWord);
             user.setInsertTime(simpleDateFormat.format(new Date()));
             userDao.insert(user);
             resultMap.put("id", user.getId());
@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
             oldUser.setCustName(custName);
             oldUser.setMobile(mobile);
             oldUser.setEmail(email);
-            oldUser.setAge(age);
-            oldUser.setSex(sex);
+            oldUser.setAge(userName);
+            oldUser.setSex(passWord);
             oldUser.setUpdateTime(simpleDateFormat.format(new Date()));
             userDao.updateById(oldUser);
             resultMap.put("id", oldUser.getId());
@@ -73,6 +73,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CommonResult list() {
+        List<User> userList = userDao.list();
+        logger.info("查询成功");
+        return new CommonResult<>(userList);
+    }
+
+    @Override
+    public CommonResult checkUserAndPass(Map map) {
+        String userId = MapUtil.getStringKeyValues(map, "name");
+        String pass = MapUtil.getStringKeyValues(map, "pass");
+        User user = userDao.selectUserInfoByIdNo(userId);
+        if (StringUtils.isEmpty(user)) {
+            return new CommonResult("用户名或密码错误，请重新输入", "00001");
+        } else {
+            if (!Objects.equals(pass, user.getEmail())) {
+                return new CommonResult("用户名或密码错误，请重新输入", "00002");
+            }
+        }
         List<User> userList = userDao.list();
         logger.info("查询成功");
         return new CommonResult<>(userList);

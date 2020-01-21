@@ -41,4 +41,9 @@ public class UserController {
     public CommonResult list() {
         return  userService.list();
     }
+
+    @RequestMapping(value = "api/crm/checkUserAndPass", method = RequestMethod.POST)
+    public CommonResult checkUserAndPass(@RequestBody Map map) {
+        return  userService.checkUserAndPass(map);
+    }
 }
