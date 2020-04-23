@@ -9,9 +9,9 @@ version = '1.0.0-exec'
 sourceCompatibility = '1.8'
 
 repositories {
-    mavenCentral()
     maven { url 'https://maven.bestvike.com/repository/maven-public/' }
     maven { url 'https://maven.bestvike.com/repository/third-party/' }
+    mavenCentral()
     flatDir {
         dirs 'lib'
     }
@@ -26,6 +26,6 @@ dependencies {
 //    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
     implementation 'mysql:mysql-connector-java:8.0.15'
     implementation 'com.baomidou:mybatis-plus-boot-starter:3.2.0'
-    implementation 'org.projectlombok:lombok:1.18.0'
+//    implementation 'org.projectlombok:lombok:1.18.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -13,5 +13,7 @@ public interface UserDao extends BaseMapper<User> {
 
     User selectUserInfoByIdNo(String idNo);
 
+    User selectUserInfoByUserName(String userName);
+
     List<User> list();
 }

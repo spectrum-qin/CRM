@@ -27,36 +27,30 @@ public class UserServiceImpl implements UserService {
 
         String idNo = MapUtil.getStringKeyValues(map, "idNo");
         String idType = MapUtil.getStringKeyValues(map, "idType");
-        String custName = MapUtil.getStringKeyValues(map, "custName");
-        String mobile = MapUtil.getStringKeyValues(map, "mobile");
-        String email = MapUtil.getStringKeyValues(map, "email");
         String userName = MapUtil.getStringKeyValues(map, "userName");
-        String passWord = MapUtil.getStringKeyValues(map, "passWord");
+        String mobile = MapUtil.getStringKeyValues(map, "mobile");
+        String pass = MapUtil.getStringKeyValues(map, "pass");
         User oldUser = userDao.selectUserInfoByIdNo(idNo);
         Map resultMap = new HashMap();
         if (StringUtils.isEmpty(oldUser)) {
-            logger.info("该用户不存在客户信息,保存客户信息");
+            logger.info("注册新用户,保存用户信息");
             User user = new User();
             user.setId(UUID.randomUUID().toString().trim().replaceAll("-", ""));
             user.setIdNo(idNo);
             user.setIdType(idType);
-            user.setCustName(custName);
+            user.setUserName(userName);
             user.setMobile(mobile);
-            user.setEmail(email);
-            user.setAge(userName);
-            user.setSex(passWord);
+            user.setPass(pass);
             user.setInsertTime(simpleDateFormat.format(new Date()));
             userDao.insert(user);
             resultMap.put("id", user.getId());
         } else {
-            logger.info("该用户已存在客户信息,进行更新信息");
+            logger.info("修改密码,进行更新信息");
             oldUser.setIdNo(idNo);
             oldUser.setIdType(idType);
-            oldUser.setCustName(custName);
+            oldUser.setUserName(userName);
             oldUser.setMobile(mobile);
-            oldUser.setEmail(email);
-            oldUser.setAge(userName);
-            oldUser.setSex(passWord);
+            oldUser.setPass(pass);
             oldUser.setUpdateTime(simpleDateFormat.format(new Date()));
             userDao.updateById(oldUser);
             resultMap.put("id", oldUser.getId());
@@ -82,11 +76,11 @@ public class UserServiceImpl implements UserService {
     public CommonResult checkUserAndPass(Map map) {
         String userId = MapUtil.getStringKeyValues(map, "name");
         String pass = MapUtil.getStringKeyValues(map, "pass");
-        User user = userDao.selectUserInfoByIdNo(userId);
+        User user = userDao.selectUserInfoByUserName(userId);
         if (StringUtils.isEmpty(user)) {
-            return new CommonResult("用户名或密码错误，请重新输入", "00001");
+            return new CommonResult("该用户不存在，请先注册再登录", "00001");
         } else {
-            if (!Objects.equals(pass, user.getEmail())) {
+            if (!Objects.equals(pass, user.getPass())) {
                 return new CommonResult("用户名或密码错误，请重新输入", "00002");
             }
         }
