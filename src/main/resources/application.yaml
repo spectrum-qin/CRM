@@ -2,7 +2,7 @@ spring:
   application:
     name: CRM #服务名称
   datasource:
-    url: jdbc:mysql://122.51.247.67:3306/mall?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://118.25.4.178:3306/spectrum?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
